@@ -104,4 +104,4 @@ venv.bak/
 .mypy_cache/
 
 # Google Cloud Platform Authentication
-*.json
+.json
