@@ -17,5 +17,5 @@ class news:
       article = cnn_paper.articles[i]
       article.download()
       article.parse()
-      output+=(article.text).encode('utf-8').strip()
+      output+=str((article.text).encode('utf-8').strip())
     return output;
