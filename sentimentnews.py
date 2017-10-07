@@ -23,7 +23,7 @@ class news:
     article = cnn_paper.articles[self.i]
     article.download()
     article.parse()
-    output+=(article.text).encode('utf-8').strip()
+    output+=str((article.text).encode('utf-8').strip())
     
     self.i += 1
     return output
