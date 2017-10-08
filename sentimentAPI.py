@@ -48,7 +48,7 @@ def analyze(movie_review_filename):
     with open(movie_review_filename, 'r') as review_file:
         # Instantiates a plain text document.
         content = review_file.read()
-
+            # print(content)
     document = types.Document(
         content=content,
         type=enums.Document.Type.PLAIN_TEXT)
@@ -57,56 +57,61 @@ def analyze(movie_review_filename):
     # Print the results
     print_result(annotations)
 
-num = input('Type 0 to debug, Type 1 to sample Twitter, 2 for Hacker News, or 3 for Google Search')
-num = int(num)
+print('Line 0 is debug, Line 1 is sample Twitter, 2 is Hacker News, 3 is Google Search, and 4 is CNN')
+searchTerm = input('What would you like to search?')
+#debug
+print("DEBUG: ")
+try:
+    f = open("data.txt", 'w')
+    f.write("Awesome spectacular amazing incredible I love life")
+finally:
+    f.close()
+analyze('data.txt')
+os.remove('data.txt')
+#Twitter
+print("TWITTER: ")
+try:
+    f = open("data.txt", 'w')
+    #have to make tApi return cast as a string so we can write it
 
-if num == 0:
-    try:
-        f = open("data.txt", 'w')
-        f.write("Awesome spectacular amazing incredible I love life")
-    finally:
-        f.close()
-    analyze('data.txt')
-    os.remove('data.txt')
+    tweets = tApi.home_timeline()
+    for tweet in tweets:
+        f.write(tweet.text)
 
+finally:
+    f.close()
+analyze('data.txt')
+os.remove('data.txt')
+#HN
+print("HACKER NEWS: ")
+try:
+    f = open("data.txt", 'w')
+    for story_id in hn.top_stories(limit=10):
+        f.write(str(hn.get_item(story_id)))
+finally:
+    f.close()
+analyze('data.txt')
+os.remove('data.txt')
+#Google Search
+print("GOOGLE SEARCH FOR {}".format(searchTerm))
+try:
+    f = open("data.txt", 'w')
+    results = search(searchTerm)
+    f.write((str(results)))
 
-if num == 1:
-    try:
-        f = open("data.txt", 'w')
-        #have to make tApi return cast as a string so we can write it
-        #sResults = str(tApi.home_timeline())
-        tweets = tApi.home_timeline()
-        for tweet in tweets:
-            f.write(tweet.text)
-    #print(tweet.text)
-    finally:
-        f.close()
-    analyze('data.txt')
-    os.remove('data.txt')
+finally:
+    f.close()
+analyze('data.txt')
+os.remove('data.txt')
+#CNN
+print("TOP CNN ARTICLES:")
+try:
+    f = open("data.txt", 'w')
+    results = news(3)
+    f.write(str(results.get()))
 
-if num == 2:
-    try:
-        f = open("data.txt", 'w')
-        for story_id in hn.top_stories(limit=10):
-            f.write(str(hn.get_item(story_id)))
-    finally:
-        f.close()
-    analyze('data.txt')
-    os.remove('data.txt')
-
-if num == 3:
-    searchTerm = input('What would you like to search?')
-    #searchTerm = str(searchTerm)
-    try:
-        f = open("data.txt", 'w')
-        results = search(searchTerm)
-        f.write((str(results)))
-#print(str(results))
-    finally:
-        f.close()
-    analyze('data.txt')
-    os.remove('data.txt')
-
-
-
+finally:
+    f.close()
+analyze('data.txt')
+os.remove('data.txt')
 

@@ -6,12 +6,12 @@ class news:
     self.number = range_in
     self.i = 0
     
-    cnn_paper = newspaper.build("http://www.cnn.com/search/?q=" + query, memoize_articles=False)
+    self.cnn_paper = newspaper.build("http://www.cnn.com/search/?q=" + query, memoize_articles=False)
     
   def empty(self):
-    if i < number:
-      return false
-    return true
+    if self.i < self.number:
+      return False
+    return True
     
   def get(self):
 
@@ -20,7 +20,7 @@ class news:
     # newspaper.news_pool.join()
 
     output = ""
-    article = cnn_paper.articles[self.i]
+    article = self.cnn_paper.articles[self.i]
     article.download()
     article.parse()
     output += article.text
