@@ -2,11 +2,11 @@ import newspaper
 
 class news:
 
-  def __init__(self, range_in):
+  def __init__(self, range_in, query):
     self.number = range_in
     self.i = 0
     
-    cnn_paper = newspaper.build('http://www.cnn.com/specials/last-50-stories', memoize_articles=False)
+    cnn_paper = newspaper.build("http://www.cnn.com/search/?q=" + query, memoize_articles=False)
     
   def empty(self):
     if i < number:
@@ -23,7 +23,7 @@ class news:
     article = cnn_paper.articles[self.i]
     article.download()
     article.parse()
-    output+=(article.text).encode('utf-8').strip()
+    output += article.text
     
     self.i += 1
     return output

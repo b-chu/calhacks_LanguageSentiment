@@ -18,7 +18,7 @@ import os
 import termcolor
 from termcolor import colored
 
-from sentimentnews import news
+from sentimentNews import news
 
 consumer_key = 'MGDSQ8j3dQYboOittNFGrp4lo'
 consumer_secret = 'bVv3gkh3d2PbCbnrQ65DXhhy2uH3XT0c1VXJ29MEuiwDUm27sl'
@@ -31,7 +31,7 @@ tApi = tweepy.API(auth)
 
 def print_result(annotations):
     score = annotations.document_sentiment.score
-    
+
     if score > .3:
         print(colored('Overall Sentiment: score of {} '.format(score), 'green'))
         return 0
@@ -40,6 +40,7 @@ def print_result(annotations):
         return 0
     print('Overall Sentiment: score of {} '.format(score))
     return 0
+
 
 def analyze(movie_review_filename):
     client = language.LanguageServiceClient()
