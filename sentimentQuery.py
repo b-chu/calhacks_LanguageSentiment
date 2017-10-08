@@ -4,13 +4,15 @@ from google.cloud.language import types
 
 from sentimentNews import news
 
-import six
+from six import binary_type
+from six.moves import input
 
 # Unformatted text
 def analyze_text(text):
     client = language.LanguageServiceClient()
 
-    if isinstance(text, six.binary_type):
+    # print(text.encode('utf-8').strip())
+    if isinstance(text, binary_type):
         text = text.decode('utf-8')
 
     document = types.Document(
@@ -28,11 +30,12 @@ def print_result(annotations):
 	print('Overall Sentiment: score of {} with magnitude of {}'.format(score, magnitude))
 	return 0
 
-def query(searchTerm)
-	results.news(3, searchTerm)
-	while(not results.empty())
+def query(searchTerm):
+	args = list([])
+	results = news(3, searchTerm, args)
+	while(not results.empty()):
 		analyze_text(results.get())
 
-searchTerm = input('What would you like to search?')
+searchTerm = "trump"
 query(searchTerm)
 
